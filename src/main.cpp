@@ -170,15 +170,20 @@ int main(int argc, char* const* args) {
     device.cond_var.wait(dep_lck);
     device.getDepth(depth_img);
 
+    cv::Mat K = (cv::Mat_<float>(3, 3) << 540., 0., 300.5, 0., 540., 200.5, 0., 0., 1.);
+    cv::Mat_<unsigned short> registeredDepth;
+
+    cv::rgbd::registerDepth(K, K, cv::Mat(), cv::Matx44f::eye(), depth_img, cv::Size(WIDTH, HEIGHT), registeredDepth, true);
+
     if (opts.use_bg_img || opts.blur_bg) {
-      cv::GaussianBlur(depth_img, depth_img, cv::Size(21, 21), 0);
+      cv::GaussianBlur(registeredDepth, registeredDepth, cv::Size(21, 21), 0);
 
       // Set depth image to binary values: foreground and background
-      cv::threshold(depth_img, depth_img, opts.bg_threshold,
+      cv::threshold(registeredDepth, registeredDepth, opts.bg_threshold,
                     FREENECT_DEPTH_MM_MAX_VALUE, cv::THRESH_BINARY);
 
       // Set to binary greyscale
-      depth_img.convertTo(mask, CV_8UC1, 255.0 / FREENECT_DEPTH_MM_MAX_VALUE);
+      registeredDepth.convertTo(mask, CV_8UC1, 255.0 / FREENECT_DEPTH_MM_MAX_VALUE);
 
       // Fix curved edges
       mask = mask | frame;
