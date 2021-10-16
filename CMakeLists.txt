@@ -21,7 +21,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 #####################################################################
 
 # Search Packages
-find_package(OpenCV COMPONENTS core imgproc highgui REQUIRED)
+find_package(OpenCV COMPONENTS core imgproc highgui rgbd viz REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 find_package(Threads REQUIRED)
 find_package(libfreenect REQUIRED)

@@ -5,6 +5,7 @@
 #include <cstdio>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/opencv.hpp>
+#include <opencv2/rgbd.hpp>
 
 #include "CmdLineOpts.hpp"
 #include "MyFreenectDevice.hpp"
