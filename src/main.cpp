@@ -132,7 +132,7 @@ int main(int argc, char* const* args) {
   // TODO: I need to understand the need of this frame better. But currently is
   // a quick-fix of the displacement of the depth image to fit the rgb position
   cv::Mat frame(HEIGHT, WIDTH, CV_8UC1, 255);
-  frame(cv::Rect(30, 40, 565, 440)) = 0;
+  frame(cv::Rect(20, 20, 600, 440)) = 0;
 
   cv::Mat bg_img;
   cv::Mat mask(cv::Size(WIDTH, HEIGHT), CV_8UC1);
