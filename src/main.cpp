@@ -170,10 +170,11 @@ int main(int argc, char* const* args) {
     device.cond_var.wait(dep_lck);
     device.getDepth(depth_img);
 
-    cv::Mat K = (cv::Mat_<float>(3, 3) << 540., 0., 300.5, 0., 540., 200.5, 0., 0., 1.);
+    cv::Mat K = (cv::Mat_<float>(3, 3) << 525., 0., 319.5, 0., 525., 239.5, 0., 0., 1.);
+    cv::Mat C = (cv::Mat_<float>(3, 3) << 520., 0., 315.5, 0., 512., 244.5, 0., 0., 1.);
     cv::Mat_<unsigned short> registeredDepth;
 
-    cv::rgbd::registerDepth(K, K, cv::Mat(), cv::Matx44f::eye(), depth_img, cv::Size(WIDTH, HEIGHT), registeredDepth, true);
+    cv::rgbd::registerDepth(C, K, cv::Mat(), cv::Matx44f::eye(), depth_img, cv::Size(WIDTH, HEIGHT), registeredDepth, true);
 
     if (opts.use_bg_img || opts.blur_bg) {
       cv::GaussianBlur(registeredDepth, registeredDepth, cv::Size(21, 21), 0);
